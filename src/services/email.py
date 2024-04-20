@@ -6,7 +6,6 @@ from fastapi_mail.errors import ConnectionErrors
 from pydantic import BaseModel, EmailStr
 
 from src.conf.config import settings
-
 from src.services.auth import auth_service
 
 
@@ -27,6 +26,16 @@ conf = ConnectionConfig(
 )
 
 async def send_email(email: EmailStr, username: str, host: str):
+    """
+    Send an email for email verification.
+
+    :param email: The recipient's email address.
+    :type email: EmailStr
+    :param username: The username associated with the email.
+    :type username: str
+    :param host: The base URL of the application.
+    :type host: str
+    """
     try:
         token_verification = auth_service.create_email_token({"sub": email})
         message = MessageSchema(

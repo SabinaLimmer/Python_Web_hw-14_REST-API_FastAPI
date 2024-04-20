@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import extract, or_
 
 from src.database.models import Contact
-from src.schemas import ContactIn, UserOut, ContactOut
+from src.schemas.schemas import ContactIn, UserOut, ContactOut
 from src.repository.abstract import AbstractContactsRepository
 
 class ContactsRepository(AbstractContactsRepository):

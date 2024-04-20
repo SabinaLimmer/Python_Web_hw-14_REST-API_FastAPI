@@ -9,17 +9,37 @@ from src.database.models import User
 from src.repository import users as repository_users
 from src.services.auth import Auth, auth_service
 from src.conf.config import settings
-from src.schemas import UserOut
+from src.schemas.schemas import UserOut
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 @router.get("/me", response_model=UserOut)
 async def read_users_me(current_user: User = Depends(auth_service.get_current_user)):
+    """
+    Retrieve details of the current user.
+
+    :param User current_user: The current authenticated user.
+
+    :return: Details of the current user.
+    :rtype: UserOut
+    """
     return current_user
 
 @router.patch('/avatar', response_model=UserOut)
 async def update_avatar_user(file: UploadFile = File(), current_user: User = Depends(auth_service.get_current_user),
                              db: Session = Depends(get_db)):
+    """
+    Update the avatar of the current user.
+
+    :param UploadFile file: The image file to upload as the avatar.
+    :param User current_user: The current authenticated user.
+    :param Session db: The database session.
+
+    :return: Updated user details with the new avatar.
+    :rtype: UserOut
+
+    :raises HTTPException: If there is an issue updating the avatar.
+    """
     cloudinary.config(
         cloud_name=settings.cloudinary_name,
         api_key=settings.cloudinary_api_key,

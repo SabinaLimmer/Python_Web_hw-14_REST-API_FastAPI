@@ -8,8 +8,14 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Dependency
 def get_db():
+    """
+    Returns a database session.
+
+    Yields:
+        Session: The database session object.
+
+    """
     db = SessionLocal()
     try:
         yield db

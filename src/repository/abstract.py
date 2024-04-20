@@ -1,9 +1,16 @@
 import abc
 
-from src.schemas import UserOut, ContactOut, ContactIn
+from src.schemas.schemas import UserOut, ContactOut, ContactIn
 
 
 class AbstractContactsRepository(abc.ABC):
+    """
+    Abstract base class defining the interface for a contacts repository.
+
+    This class defines the abstract methods that should be implemented by concrete subclasses to provide
+    functionality for managing contacts.
+
+    """
     @abc.abstractmethod
     async def get_contacts(self, skip: int, limit: int, user: UserOut) -> list[ContactOut]:
         ...
